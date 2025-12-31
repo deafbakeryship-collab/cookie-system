@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>餅乾系統 - 條碼生成器</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px; }
+        .container { border: 1px solid #ddd; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input { padding: 10px; font-size: 16px; width: 250px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        #barcode-result { margin-top: 30px; }
+        p { color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🍪 餅乾條碼產生器</h2>
+        <p>輸入編號（如：CK-001）並點擊生成</p>
+        <input type="text" id="barcodeValue" placeholder="輸入產品編號...">
+        <br>
+        <button onclick="generateBarcode()">生成條碼</button>
+
+        <div id="barcode-result">
+            <svg id="barcode"></svg>
+        </div>
+    </div>
+
+    <script>
+        function generateBarcode() {
+            const val = document.getElementById('barcodeValue').value;
+            if (val.trim() === "") {
+                alert("請輸入內容！");
+                return;
+            }
+            
+            // 使用 JsBarcode 繪製條碼
+            JsBarcode("#barcode", val, {
+                format: "CODE128",  // 最通用的條碼格式
+                lineColor: "#000",
+                width: 2,
+                height: 80,
+                displayValue: true  // 是否在條碼下方顯示文字
+            });
+        }
+    </script>
+</body>
+</html>
